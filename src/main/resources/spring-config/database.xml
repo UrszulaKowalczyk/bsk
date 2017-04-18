@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/data/jpa
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<jpa:repositories base-package="com.ukowalczyk.bsk.repository" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${database.driver}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+		<property name="connectionProperties">
+			<props>
+				<prop key="charSet">${database.charSet}</prop>
+				<prop key="characterEncoding">${database.characterEncoding}</prop>
+				<prop key="useUnicode">${database.useUnicode}</prop>
+				<prop key="autoReconnect">${database.autoReconnect}</prop>
+				<prop key="useJDBCCompliantTimezoneShift">${database.useJDBCCompliantTimezoneShift}</prop>
+				<prop key="useLegacyDatetimeCode">${database.useLegacyDatetimeCode}</prop>
+				<prop key="serverTimezone">${database.serverTimezone}</prop>
+				<prop key="useSSL">${database.useSSL}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="showSql" value="${database.showSql}" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="packagesToScan" value="com.ukowalczyk.bsk.model" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.id.new_generator_mappings">${database.new_generator_mappings}</prop>
+				<prop key="hibernate.dialect">${database.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${database.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${database.showSql}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<constructor-arg ref="entityManagerFactory" />
+	</bean>
+
+</beans>
