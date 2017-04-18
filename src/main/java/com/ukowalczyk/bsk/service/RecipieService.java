@@ -1,8 +1,11 @@
 package com.ukowalczyk.bsk.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ukowalczyk.bsk.model.Label;
 import com.ukowalczyk.bsk.model.Recipie;
 import com.ukowalczyk.bsk.repository.RecipieRepository;
 
@@ -11,6 +14,10 @@ public class RecipieService {
 
 	@Autowired
 	private RecipieRepository repository;
+
+	public List<Recipie> findAllByLabel(Label label) {
+		return repository.findAllByLabel(label);
+	}
 
 	public void save(Recipie recipie) {
 		repository.save(recipie);

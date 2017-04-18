@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j
 public class HelloController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	//@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String printHello(Model model) {
 		model.addAttribute("message", "siema");
-
 		return "index";
 	}
 
