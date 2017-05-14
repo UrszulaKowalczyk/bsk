@@ -4,28 +4,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http>
-        <intercept-url pattern="/login*" access="isAnonymous()" />
-        <intercept-url pattern="/resources/**" access="permitAll" />
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
-        <form-login
-                login-page="/login"
-                authentication-failure-url="/login?error=true" />
-        <logout logout-success-url="/login" />
-    </http>
-
-	<user-service>
-		<user name="user" password="password" authorities="ROLE_USER" />
-	</user-service>
-
+	<http>
+		<intercept-url pattern="/login*" access="isAnonymous()" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<form-login login-page="/login" authentication-failure-url="/login?error=true" />
+		<logout logout-success-url="/login" />
+	</http>
 
 	<security:authentication-manager>
 		<security:authentication-provider>
+		<security:password-encoder hash="bcrypt"/>
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
 				users-by-username-query="select u.login, u.password, 1 from User u where u.login=?"
-				authorities-by-username-query="select u.login, r.roleName from Role r, User u, user_role ur 
-			        where u.id = ur.user_id and ur.role_id = r.id and u.login =?  " />
+				authorities-by-username-query="select u.login, u.password, 1 from User u where u.login=?" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 
