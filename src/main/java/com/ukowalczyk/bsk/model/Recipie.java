@@ -1,11 +1,14 @@
 package com.ukowalczyk.bsk.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,16 +29,17 @@ public class Recipie {
 	@Column(nullable = false)
 	private String title;
 
-	@Column(nullable = true)
+	@Column(nullable = true, length = 2000)
 	private String description;
 
-	@ManyToOne
-	@JoinColumn(name = "label")
-	private Label label;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ingredient")
+	private List<Ingredient> ingredients;
 
-	public Recipie(String title, String description, Label label) {
+	public Recipie(String title, String description, List<Ingredient> ingredients) {
 		this.title = title;
 		this.description = description;
-		this.label = label;
+		this.ingredients = ingredients;
 	}
+
 }

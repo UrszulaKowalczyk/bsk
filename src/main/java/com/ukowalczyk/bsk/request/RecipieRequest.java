@@ -1,7 +1,5 @@
 package com.ukowalczyk.bsk.request;
 
-import com.ukowalczyk.bsk.model.Label;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +13,7 @@ public class RecipieRequest {
 
 	private String title;
 	private String description;
+	private String ingredients;
 	private String label;
 
 }
