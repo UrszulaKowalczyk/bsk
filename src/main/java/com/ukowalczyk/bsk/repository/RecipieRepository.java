@@ -11,6 +11,4 @@ public interface RecipieRepository extends JpaRepository<Recipie, Long> {
 
 	public Recipie findById(Long id);
 
-	public List<Recipie> findAllByLabel(Label label);
-
 }

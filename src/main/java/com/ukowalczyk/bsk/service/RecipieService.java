@@ -15,8 +15,8 @@ public class RecipieService {
 	@Autowired
 	private RecipieRepository repository;
 
-	public List<Recipie> findAllByLabel(Label label) {
-		return repository.findAllByLabel(label);
+	public List<Recipie> findAll() {
+		return repository.findAll();
 	}
 
 	public void save(Recipie recipie) {

@@ -10,9 +10,6 @@
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">PRZEPISY MA RYSI</a>
-			</div>
 		</div>
 	</nav>
 	

@@ -10,12 +10,9 @@
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">PRZEPISY MA RYSI</a>
-			</div>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<c:url value="/addRecipie" />"><span
-						class="glyphicon glyphicon-cutlery"></span> Dodaj przepis</a></li>
+				<li><a href="<c:url value="/" />"><span
+						class="glyphicon glyphicon-list"></span> Wróć </a></li>
 				<li><a href="<c:url value="/logout" />"><span
 						class="glyphicon glyphicon-log-in"></span> Wyloguj</a></li>
 			</ul>
