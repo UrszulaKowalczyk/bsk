@@ -3,13 +3,10 @@ package com.ukowalczyk.bsk.controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,16 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ukowalczyk.bsk.initializer.DatabaseInitializer;
 import com.ukowalczyk.bsk.model.Ingredient;
 import com.ukowalczyk.bsk.model.Recipie;
-import com.ukowalczyk.bsk.model.TableLabel;
 import com.ukowalczyk.bsk.service.IngredientService;
 import com.ukowalczyk.bsk.service.RecipieService;
 import com.ukowalczyk.bsk.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
-@Slf4j
-public class LoggedUserController {
+public class RecipieController {
 
 	@Autowired
 	private UserService userService;
@@ -36,15 +29,6 @@ public class LoggedUserController {
 	@Autowired
 	private IngredientService ingredientService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showTable(Model model, Principal principal) {
-		List<TableLabel> listOfReadableTables = userService.getReadableTables(principal);
-		List<TableLabel> listOfWriteableTables = userService.getWriteableTables(principal);
-		model.addAttribute("readeableTables", listOfReadableTables);
-		model.addAttribute("writeableTables", listOfWriteableTables);
-		return "showTables";
-	}
-
 	@RequestMapping(value = "/showRecipies", method = RequestMethod.GET)
 	public String showRecipies(Model model, Principal principal) {
 		List<Recipie> listOfRecipies = userService.getRecipies(principal);
@@ -52,15 +36,6 @@ public class LoggedUserController {
 			return "notAllowed";
 		model.addAttribute("recipies", listOfRecipies);
 		return "listOfRecipies";
-	}
-
-	@RequestMapping(value = "/showIngredients", method = RequestMethod.GET)
-	public String showIngredients(Model model, Principal principal) {
-		List<Ingredient> listOfIngredients = userService.getIngredients(principal);
-		if (null == listOfIngredients)
-			return "notAllowed";
-		model.addAttribute("ingredients", listOfIngredients);
-		return "listOfIngredients";
 	}
 
 	@RequestMapping(value = "/addRecipie", method = RequestMethod.GET)
@@ -92,46 +67,6 @@ public class LoggedUserController {
 		recipieService.save(recipie);
 
 		return "redirect:/";
-	}
-
-	@RequestMapping(value = "/addIngredient", method = RequestMethod.GET)
-	public String showFormForIngredient(Model model, Principal principal) {
-		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_INGREDIENT))
-			return "notAllowed";
-		return "addIngredient";
-	}
-
-	@RequestMapping(value = "/addIngredient", method = RequestMethod.POST)
-	public String createIngredient(HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {
-
-		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_INGREDIENT))
-			return "notAllowed";
-
-		String[] name = req.getParameterValues("name");
-
-		if (null != ingredientService.findByName(name[0])) {
-			return "redirect:/";
-		}
-
-		Ingredient ingredient = new Ingredient(name[0]);
-		ingredientService.save(ingredient);
-
-		return "redirect:/";
-	}
-
-	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
-	public String logoutDo(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession(false);
-		SecurityContextHolder.clearContext();
-		session = request.getSession(false);
-		if (session != null) {
-			session.invalidate();
-		}
-		for (Cookie cookie : request.getCookies()) {
-			cookie.setMaxAge(0);
-		}
-
-		return "redirect:/login?logout";
 	}
 
 }
