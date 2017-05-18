@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ukowalczyk.bsk.initializer.DatabaseInitializer;
 import com.ukowalczyk.bsk.model.Ingredient;
 import com.ukowalczyk.bsk.model.Recipie;
 import com.ukowalczyk.bsk.model.TableLabel;
@@ -78,15 +79,14 @@ public class LoggedUserController {
 	@RequestMapping(value = "/addRecipie", method = RequestMethod.POST)
 	public String createRecipie(HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {
 
-		if (!userService.checkIfUserCanWrite(principal, "recipie"))
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_RECIPIE))
 			return "notAllowed";
 
 		String[] title = req.getParameterValues("title");
 		String[] description = req.getParameterValues("description");
 		String[] ingredients = req.getParameterValues("multiple[]");
 
-		List<Ingredient> listOfIngredients = ingredientService.getAndAddIfNotExist(ingredients,
-				userService.findByLogin(principal));
+		List<Ingredient> listOfIngredients = ingredientService.create(ingredients, principal);
 
 		Recipie recipie = new Recipie(title[0], description[0], listOfIngredients);
 		recipieService.save(recipie);

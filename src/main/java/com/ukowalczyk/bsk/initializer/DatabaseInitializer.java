@@ -31,11 +31,11 @@ public class DatabaseInitializer {
 	@Autowired
 	private TableService tableService;
 
-	private static final String TABLE_TABLELABEL = "tablelabel";
-	private static final String TABLE_USER = "user";
-	private static final String TABLE_RECIPIE = "recipie";
-	private static final String TABLE_INGREDIENT = "ingredient";
-	private static final String TABLE_RECIPIE_INGREDIENT = "recipie_ingredient";
+	public static final String TABLE_TABLELABEL = "tablelabel";
+	public static final String TABLE_USER = "user";
+	public static final String TABLE_RECIPIE = "recipie";
+	public static final String TABLE_INGREDIENT = "ingredient";
+	public static final String TABLE_RECIPIE_INGREDIENT = "recipie_ingredient";
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
