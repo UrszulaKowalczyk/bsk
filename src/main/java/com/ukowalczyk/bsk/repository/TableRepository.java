@@ -7,6 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.ukowalczyk.bsk.model.TableLabel;
 
 public interface TableRepository extends JpaRepository<TableLabel, Long> {
-	public List<TableLabel> findAllByLabelLessThanEqual(int label);
-	public List<TableLabel> findAllByLabelGreaterThanEqual(int label);
+	
+	TableLabel findByTableName(String tableName);
+
+	List<TableLabel> findAllByLabelLessThanEqual(int label);
+
+	List<TableLabel> findAllByLabelGreaterThanEqual(int label);
+	
 }

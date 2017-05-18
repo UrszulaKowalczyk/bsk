@@ -49,10 +49,6 @@ public class IngredientController {
 
 		String[] name = req.getParameterValues("name");
 
-		if (null != ingredientService.findByName(name[0])) {
-			return "redirect:/";
-		}
-
 		Ingredient ingredient = new Ingredient(name[0]);
 		ingredientService.save(ingredient);
 

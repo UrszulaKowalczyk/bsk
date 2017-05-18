@@ -17,7 +17,7 @@ import com.ukowalczyk.bsk.model.TableLabel;
 import com.ukowalczyk.bsk.model.User;
 import com.ukowalczyk.bsk.service.IngredientService;
 import com.ukowalczyk.bsk.service.RecipieService;
-import com.ukowalczyk.bsk.service.TableService;
+import com.ukowalczyk.bsk.service.TableLabelService;
 import com.ukowalczyk.bsk.service.UserService;
 
 @Component
@@ -29,7 +29,7 @@ public class DatabaseInitializer {
 	@Autowired
 	private RecipieService recipieService;
 	@Autowired
-	private TableService tableService;
+	private TableLabelService tableLabelService;
 
 	public static final String TABLE_TABLELABEL = "tablelabel";
 	public static final String TABLE_USER = "user";
@@ -137,11 +137,11 @@ public class DatabaseInitializer {
 	}
 
 	private void initializeTables() {
-		tableService.save(new TableLabel(TABLE_USER, 1));
-		tableService.save(new TableLabel(TABLE_TABLELABEL, 1));
-		tableService.save(new TableLabel(TABLE_INGREDIENT, 2));
-		tableService.save(new TableLabel(TABLE_RECIPIE, 3));
-		tableService.save(new TableLabel(TABLE_RECIPIE_INGREDIENT, 4));
+		tableLabelService.save(new TableLabel(TABLE_USER, 1));
+		tableLabelService.save(new TableLabel(TABLE_TABLELABEL, 1));
+		tableLabelService.save(new TableLabel(TABLE_INGREDIENT, 2));
+		tableLabelService.save(new TableLabel(TABLE_RECIPIE, 3));
+		tableLabelService.save(new TableLabel(TABLE_RECIPIE_INGREDIENT, 4));
 	}
 
 }

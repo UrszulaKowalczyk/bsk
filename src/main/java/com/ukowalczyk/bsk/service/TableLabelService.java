@@ -9,13 +9,17 @@ import com.ukowalczyk.bsk.model.TableLabel;
 import com.ukowalczyk.bsk.repository.TableRepository;
 
 @Service
-public class TableService {
+public class TableLabelService {
 
 	@Autowired
 	private TableRepository repository;
 
 	public void save(TableLabel tableLabel) {
 		repository.save(tableLabel);
+	}
+
+	public TableLabel findByTableName(String name) {
+		return repository.findByTableName(name);
 	}
 
 	public List<TableLabel> findAllByLabelLessThanEqual(int userLabel) {
@@ -25,4 +29,9 @@ public class TableService {
 	public List<TableLabel> findAllByLabelGreaterThanEqual(int userLabel) {
 		return repository.findAllByLabelGreaterThanEqual(userLabel);
 	}
+
+	public List<TableLabel> findAll() {
+		return repository.findAll();
+	}
+
 }

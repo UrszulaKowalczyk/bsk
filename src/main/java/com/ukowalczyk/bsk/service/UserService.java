@@ -22,7 +22,7 @@ public class UserService {
 	@Autowired
 	private IngredientService ingredientService;
 	@Autowired
-	private TableService tableService;
+	private TableLabelService tableLabelService;
 
 	public List<Recipie> getRecipies(Principal principal) {
 		if (!checkIfUserCanRead(principal, "recipie"))
@@ -56,12 +56,12 @@ public class UserService {
 
 	public List<TableLabel> getReadableTables(Principal principal) {
 		User user = findByLogin(principal);
-		return tableService.findAllByLabelLessThanEqual(user.getLabel());
+		return tableLabelService.findAllByLabelLessThanEqual(user.getLabel());
 	}
 
 	public List<TableLabel> getWriteableTables(Principal principal) {
 		User user = findByLogin(principal);
-		return tableService.findAllByLabelGreaterThanEqual(user.getLabel());
+		return tableLabelService.findAllByLabelGreaterThanEqual(user.getLabel());
 	}
 
 	public void save(User user) {
@@ -70,6 +70,10 @@ public class UserService {
 
 	public User findByLogin(Principal principal) {
 		return repository.findByLogin(principal.getName());
+	}
+
+	public List<User> findAll() {
+		return repository.findAll();
 	}
 
 }
