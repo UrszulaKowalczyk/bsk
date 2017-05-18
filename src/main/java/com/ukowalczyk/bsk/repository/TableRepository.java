@@ -4,11 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ukowalczyk.bsk.model.Label;
-import com.ukowalczyk.bsk.model.TableLabels;
+import com.ukowalczyk.bsk.model.TableLabel;
 
-public interface TableRepository extends JpaRepository<TableLabels, Long> {
-	public List<TableLabels> findAllByLabel(Label label);
-
+public interface TableRepository extends JpaRepository<TableLabel, Long> {
+	public List<TableLabel> findAllByLabelLessThanEqual(int label);
+	public List<TableLabel> findAllByLabelGreaterThanEqual(int label);
 }
-

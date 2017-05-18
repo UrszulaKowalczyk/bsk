@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TableLabels {
+public class TableLabel {
 
 	@Id
 	@GeneratedValue
@@ -26,11 +24,9 @@ public class TableLabels {
 	@Column(nullable = false)
 	private String tableName;
 
-	@ManyToOne
-	@JoinColumn(name = "label")
-	private Label label;
+	private int label;
 
-	public TableLabels(String tableName, Label label) {
+	public TableLabel(String tableName, int label) {
 		this.tableName = tableName;
 		this.label = label;
 	}

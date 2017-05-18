@@ -7,28 +7,21 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.ukowalczyk.bsk.enums.LabelEnum;
 import com.ukowalczyk.bsk.model.Ingredient;
-import com.ukowalczyk.bsk.model.Label;
 import com.ukowalczyk.bsk.model.Recipie;
-import com.ukowalczyk.bsk.model.TableLabels;
+import com.ukowalczyk.bsk.model.TableLabel;
 import com.ukowalczyk.bsk.model.User;
 import com.ukowalczyk.bsk.service.IngredientService;
-import com.ukowalczyk.bsk.service.LabelService;
 import com.ukowalczyk.bsk.service.RecipieService;
 import com.ukowalczyk.bsk.service.TableService;
 import com.ukowalczyk.bsk.service.UserService;
 
 @Component
 public class DatabaseInitializer {
-
-	@Autowired
-	private LabelService labelService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -38,14 +31,16 @@ public class DatabaseInitializer {
 	@Autowired
 	private TableService tableService;
 
+	private static final String TABLE_TABLELABEL = "tablelabel";
+	private static final String TABLE_USER = "user";
 	private static final String TABLE_RECIPIE = "recipie";
 	private static final String TABLE_INGREDIENT = "ingredient";
+	private static final String TABLE_RECIPIE_INGREDIENT = "recipie_ingredient";
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@PostConstruct
 	public void initializeDatabase() {
-		initializeLabels();
 		initializeUsers();
 		initializeTables();
 		initializeIngredients();
@@ -130,36 +125,23 @@ public class DatabaseInitializer {
 	}
 
 	private void initializeUsers() {
-		Label label1 = labelService.findByValue(LabelEnum.UNCLASSIFIED);
 		String password1 = passwordEncoder.encode("password1");
-		User user1 = new User("username1", password1, label1);
+		User user1 = new User("username1", password1, 1);
 		userService.save(user1);
-		Label label2 = labelService.findByValue(LabelEnum.CONFIDENTIAL);
-		User user2 = new User("username2", password1, label2);
+		User user2 = new User("username2", password1, 2);
 		userService.save(user2);
-		Label label3 = labelService.findByValue(LabelEnum.SECRET);
-		User user3 = new User("username3", password1, label3);
+		User user3 = new User("username3", password1, 3);
 		userService.save(user3);
-		Label label4 = labelService.findByValue(LabelEnum.TOP_SECRET);
-		User user4 = new User("username4", password1, label4);
+		User user4 = new User("username4", password1, 4);
 		userService.save(user4);
 	}
 
 	private void initializeTables() {
-		Label labelUnclassified = labelService.findByValue(LabelEnum.UNCLASSIFIED);
-		Label labelConfidential = labelService.findByValue(LabelEnum.CONFIDENTIAL);
-		Label labelSecret = labelService.findByValue(LabelEnum.SECRET);
-		Label labelTopSecret = labelService.findByValue(LabelEnum.TOP_SECRET);
-
-		tableService.save(new TableLabels(TABLE_INGREDIENT, labelConfidential));
-		tableService.save(new TableLabels(TABLE_RECIPIE, labelSecret));
-
-	}
-
-	private void initializeLabels() {
-		for (LabelEnum label : LabelEnum.values()) {
-			labelService.save(label.toString());
-		}
+		tableService.save(new TableLabel(TABLE_USER, 1));
+		tableService.save(new TableLabel(TABLE_TABLELABEL, 1));
+		tableService.save(new TableLabel(TABLE_INGREDIENT, 2));
+		tableService.save(new TableLabel(TABLE_RECIPIE, 3));
+		tableService.save(new TableLabel(TABLE_RECIPIE_INGREDIENT, 4));
 	}
 
 }

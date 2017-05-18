@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ukowalczyk.bsk.model.Label;
 import com.ukowalczyk.bsk.model.Recipie;
 import com.ukowalczyk.bsk.repository.RecipieRepository;
 

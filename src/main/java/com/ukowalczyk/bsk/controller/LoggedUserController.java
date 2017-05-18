@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ukowalczyk.bsk.model.Ingredient;
 import com.ukowalczyk.bsk.model.Recipie;
-import com.ukowalczyk.bsk.model.TableLabels;
+import com.ukowalczyk.bsk.model.TableLabel;
 import com.ukowalczyk.bsk.service.IngredientService;
 import com.ukowalczyk.bsk.service.RecipieService;
 import com.ukowalczyk.bsk.service.UserService;
@@ -37,8 +37,8 @@ public class LoggedUserController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showTable(Model model, Principal principal) {
-		List<TableLabels> listOfReadableTables = userService.getReadableTables(principal);
-		List<TableLabels> listOfWriteableTables = userService.getWriteableTables(principal);
+		List<TableLabel> listOfReadableTables = userService.getReadableTables(principal);
+		List<TableLabel> listOfWriteableTables = userService.getWriteableTables(principal);
 		model.addAttribute("readeableTables", listOfReadableTables);
 		model.addAttribute("writeableTables", listOfWriteableTables);
 		return "showTables";

@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,11 +27,9 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 
-	@ManyToOne
-	@JoinColumn(name = "label")
-	private Label label;
+	private int label;
 
-	public User(String login, String password, Label label) {
+	public User(String login, String password, int label) {
 		this.login = login;
 		this.password = password;
 		this.label = label;
