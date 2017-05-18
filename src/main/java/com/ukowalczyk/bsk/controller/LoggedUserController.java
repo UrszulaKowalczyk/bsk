@@ -96,7 +96,7 @@ public class LoggedUserController {
 
 	@RequestMapping(value = "/addIngredient", method = RequestMethod.GET)
 	public String showFormForIngredient(Model model, Principal principal) {
-		if (!userService.checkIfUserCanWrite(principal, "ingredient"))
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_INGREDIENT))
 			return "notAllowed";
 		return "addIngredient";
 	}
@@ -104,7 +104,7 @@ public class LoggedUserController {
 	@RequestMapping(value = "/addIngredient", method = RequestMethod.POST)
 	public String createIngredient(HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {
 
-		if (!userService.checkIfUserCanWrite(principal, "ingredient"))
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_INGREDIENT))
 			return "notAllowed";
 
 		String[] name = req.getParameterValues("name");
