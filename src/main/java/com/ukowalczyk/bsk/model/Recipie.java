@@ -1,5 +1,6 @@
 package com.ukowalczyk.bsk.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -40,6 +41,12 @@ public class Recipie {
 		this.title = title;
 		this.description = description;
 		this.ingredients = ingredients;
+	}
+
+	public Recipie(String title, String description) {
+		this.title = title;
+		this.description = description;
+		this.ingredients = Collections.emptyList();
 	}
 
 }

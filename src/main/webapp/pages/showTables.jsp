@@ -18,6 +18,7 @@
 	</nav>
 
 	<jsp:include page="include/ingredient.jsp"/>
+	<jsp:include page="include/recipie.jsp"/>
 
 </body>
 </html>
