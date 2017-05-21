@@ -11,6 +11,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav navbar-right">
+				<li><a>Zalogowano jako: ${user}</a></li>
 				<li><a href="<c:url value="/logout" />"><span
 						class="glyphicon glyphicon-log-in"></span> Wyloguj</a></li>
 			</ul>

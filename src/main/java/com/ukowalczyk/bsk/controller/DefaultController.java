@@ -47,6 +47,9 @@ public class DefaultController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showTable(Model model, Principal principal) {
+		
+		model.addAttribute("user", principal.getName());
+		
 		TableInfoDTO ingredientTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_INGREDIENT, principal);
 		TableInfoDTO recipieTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_RECIPIE, principal);
 		TableInfoDTO recipieIngredientTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_RECIPIE_INGREDIENT, principal);
