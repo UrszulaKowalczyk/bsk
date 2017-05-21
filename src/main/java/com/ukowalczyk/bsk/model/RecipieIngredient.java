@@ -27,6 +27,7 @@ public class RecipieIngredient {
 	@AllArgsConstructor
 	@EqualsAndHashCode
 	public static class Id implements Serializable {
+		private static final long serialVersionUID = 595894804228146120L;
 		@Column(name = "RECIPIE_ID")
 		protected Long recipieId;
 		@Column(name = "INGREDIENT_ID")

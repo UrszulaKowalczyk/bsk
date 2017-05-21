@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ukowalczyk.bsk.initializer.DatabaseInitializer;
 import com.ukowalczyk.bsk.model.Ingredient;
 import com.ukowalczyk.bsk.model.Recipie;
+import com.ukowalczyk.bsk.model.RecipieIngredient;
 import com.ukowalczyk.bsk.model.TableLabel;
 import com.ukowalczyk.bsk.model.User;
 import com.ukowalczyk.bsk.model.dto.TableInfoDTO;
 import com.ukowalczyk.bsk.service.IngredientService;
+import com.ukowalczyk.bsk.service.RecipieIngredientService;
 import com.ukowalczyk.bsk.service.RecipieService;
 import com.ukowalczyk.bsk.service.TableInfoService;
 import com.ukowalczyk.bsk.service.TableLabelService;
 import com.ukowalczyk.bsk.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
-@Slf4j
 public class DefaultController {
 
 	@Autowired
@@ -42,6 +41,9 @@ public class DefaultController {
 	
 	@Autowired
 	private TableLabelService tableLabelService;
+	
+	@Autowired
+	private RecipieIngredientService recipieIngredientService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showTable(Model model, Principal principal) {
@@ -59,14 +61,13 @@ public class DefaultController {
 		
 		List<Ingredient> ingredientList = (ingredientTableInfo.isCanRead()) ? ingredientService.findAll() : Collections.emptyList();
 		List<Recipie> recipieList = (recipieTableInfo.isCanRead()) ? recipieService.findAll() : Collections.emptyList();
-		//TODO recipie_ingredient dto
-	//	List<Ingredient> recipieIngredientList = (ingredientTableInfo.isCanRead()) ? ingredientService.findAll() : Collections.emptyList();
+		List<RecipieIngredient> recipieIngredientList = (recipieIngredientTableInfo.isCanRead()) ? recipieIngredientService.findAll() : Collections.emptyList();
 		List<User> userList = (userTableInfo.isCanRead()) ? userService.findAll() : Collections.emptyList();
 		List<TableLabel> tableLabelList = (tableLabelTableInfo.isCanRead()) ? tableLabelService.findAll() : Collections.emptyList();
 		
 		model.addAttribute("ingredientList", ingredientList);
 		model.addAttribute("recipieList", recipieList);
-		//TODO model.addAttribute("ingredientList", ingredientList);
+		model.addAttribute("recipieIngredientList", recipieIngredientList);
 		model.addAttribute("userList", userList);
 		model.addAttribute("tableLabelList", tableLabelList);
 		

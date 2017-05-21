@@ -1,5 +1,7 @@
 package com.ukowalczyk.bsk.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +17,9 @@ public class RecipieIngredientService {
 	public void save(RecipieIngredient recipieIngredient) {
 		repository.save(recipieIngredient);
 	}
+
+	public List<RecipieIngredient> findAll() {
+		return repository.findAll();
+	}
+
 }
