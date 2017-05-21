@@ -1,5 +1,6 @@
 package com.ukowalczyk.bsk.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,8 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,20 +33,19 @@ public class Recipie {
 	@Column(nullable = true, length = 2000)
 	private String description;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ingredient")
-	private List<Ingredient> ingredients;
+	@OneToMany(mappedBy = "recipie", fetch = FetchType.EAGER)
+	private List<RecipieIngredient> recipieIngredients = new ArrayList<>();
 
-	public Recipie(String title, String description, List<Ingredient> ingredients) {
+	public Recipie(String title, String description, List<RecipieIngredient> recipieIngredients) {
 		this.title = title;
 		this.description = description;
-		this.ingredients = ingredients;
+		this.recipieIngredients = recipieIngredients;
 	}
 
 	public Recipie(String title, String description) {
 		this.title = title;
 		this.description = description;
-		this.ingredients = Collections.emptyList();
+		this.recipieIngredients =  new ArrayList<>();
 	}
 
 }

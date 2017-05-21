@@ -1,9 +1,14 @@
 package com.ukowalczyk.bsk.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +28,9 @@ public class Ingredient {
 
 	@Column(nullable = false)
 	private String name;
+	
+	@OneToMany(mappedBy = "ingredient", fetch = FetchType.EAGER)
+	private List<RecipieIngredient> recipieIngredients = new ArrayList<>();
 
 	public Ingredient(String name) {
 		this.name = name;

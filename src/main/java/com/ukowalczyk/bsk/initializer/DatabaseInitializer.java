@@ -13,9 +13,11 @@ import org.springframework.stereotype.Component;
 
 import com.ukowalczyk.bsk.model.Ingredient;
 import com.ukowalczyk.bsk.model.Recipie;
+import com.ukowalczyk.bsk.model.RecipieIngredient;
 import com.ukowalczyk.bsk.model.TableLabel;
 import com.ukowalczyk.bsk.model.User;
 import com.ukowalczyk.bsk.service.IngredientService;
+import com.ukowalczyk.bsk.service.RecipieIngredientService;
 import com.ukowalczyk.bsk.service.RecipieService;
 import com.ukowalczyk.bsk.service.TableLabelService;
 import com.ukowalczyk.bsk.service.UserService;
@@ -28,6 +30,8 @@ public class DatabaseInitializer {
 	private IngredientService ingredientService;
 	@Autowired
 	private RecipieService recipieService;
+	@Autowired
+	private RecipieIngredientService recipieIngredientService;
 	@Autowired
 	private TableLabelService tableLabelService;
 
@@ -63,8 +67,16 @@ public class DatabaseInitializer {
 		Ingredient salt = ingredientService.findByName("sól");
 		List<Ingredient> allIngredients = new ArrayList<>(Arrays.asList(butter, chocolate, egg, flour, sugar, salt));
 		String description = "Masło włożyć do rondelka i roztopić. Dodać 2 gorzkie czekolady (200 g) połamane na kosteczki i roztopić, odstawić z ognia. W  misce zmiksować jajka z cukrem. Dodać czekoladę z masłem i zmiksować. Dodać mąkę, sól zmiksować. Wyłożyć do blaszki. Resztę czekolady posiekać i posypać po wierzchu ciasta. Wstawić do piekarnika i piec przez ok. 35 minut";
-		Recipie recipie = new Recipie("Brownie", description, allIngredients);
+		Recipie recipie = new Recipie("Brownie", description);
 		recipieService.save(recipie);
+		saveRecipieIngredients(allIngredients, recipie);
+	}
+
+	private void saveRecipieIngredients(List<Ingredient> allIngredients, Recipie recipie) {
+		for (Ingredient ingredient : allIngredients) {
+			RecipieIngredient recipieIngredient = new RecipieIngredient(recipie, ingredient);
+			recipieIngredientService.save(recipieIngredient);
+		}
 	}
 
 	private void addArbuzada() {
@@ -75,8 +87,9 @@ public class DatabaseInitializer {
 		Ingredient ginger = ingredientService.findByName("imbir");
 		List<Ingredient> allIngredients = new ArrayList<>(Arrays.asList(sugar, water, watermelon, lime, ginger));
 		String description = "Rozpuścić cukier w wodzie, zagotować, ostudzić. Arbuza obrać ze skóry i oczyścić z pestek. Miąższ pokroić w kostkę i włożyć do miski, zmiksować. Imbir zetrzeć na drobnej tarce. Imbir dodać do arbuza i wlać syrop. Wszystko wymieszać, przelać przez sitko do dzbanka. Dodać sok z limonki, wymieszać i wstawić do lodówki do schłodzenia na minimum godzinę.";
-		Recipie recipie = new Recipie("Arbuzada", description, allIngredients);
+		Recipie recipie = new Recipie("Arbuzada", description);
 		recipieService.save(recipie);
+		saveRecipieIngredients(allIngredients, recipie);
 	}
 
 	private void addRacuchy() {
@@ -88,8 +101,9 @@ public class DatabaseInitializer {
 		Ingredient butter = ingredientService.findByName("masło");
 		List<Ingredient> allIngredients = new ArrayList<>(Arrays.asList(yeast, milk, flour, egg, sugar, butter));
 		String description = "Drożdże rozetrzeć z 1 łyżeczką cukru, następnie rozmieszać z ciepłym mlekiem oraz z kilkoma łyżkami mąki. Zostawić do wyrośnięcia w ciepłem miejscu na około 15 minut. Masło roztopić i ostudzić. Z białek ubić sztywną pianę, dodać resztę cukru i dalej ubijając dodawać kolejno żółtka. Do wyrośniętego rozczynu z drożdży dodać resztę mąki, stopione masło, ubite jaja, jednocześnie wyrabiając ciasto przez około 15 minut. Odstawić do wyrośnięcia na około 20 minut w ciepłe miejsce. Gdy ciasto wyrośnie, uformować małe kulki, w środek włożyć pokrojone jabłka lub 3 wiśnie, zlepić jak pierogi i uformować placuszki. Smażyć na głębokim oleju, na średnim ogniu, po kilka minut z każdej strony, aż nabiorą złotego koloru. Posypać cukrem pudrem.";
-		Recipie recipie = new Recipie("Racuchy z jabłkami", description, allIngredients);
+		Recipie recipie = new Recipie("Racuchy z jabłkami", description);
 		recipieService.save(recipie);
+		saveRecipieIngredients(allIngredients, recipie);
 	}
 
 	private void addGofry() {
@@ -104,8 +118,9 @@ public class DatabaseInitializer {
 		List<Ingredient> allIngredients = new ArrayList<>(
 				Arrays.asList(flour, yeast, sugar, soda, salt, milk, butter, egg));
 		String description = "Mąkę przesiać do miski. Dodać pozostałe suche składniki (suszone drożdże, cukier, sodę oczyszczoną, sól) i wymieszać. W garnku na małym ogniu lekko (do maks. 40 st. C) podgrzać mleko i mieszając rózgą rozpuścić w nim masło. Dodać jajka i dokładnie wymieszać. Zawartość garnka pomału wlać do miski z suchymi składnikami, jednocześnie miksując do uzyskania jednorodnej masy. Kontynuować miksowanie przez kolejne ok. 2 minuty. Przygotowane ciasto odstawić pod przykryciem na minimum 1 godzinę (maks. 2 godziny) - po tym czasie powinno zwiększyć objętość i mieć charakterystyczne pęcherze na powierzchni. Odstane ciasto wymieszać i wykładać na dobrze rozgrzaną gofrownicę.";
-		Recipie recipie = new Recipie("Gofry", description, allIngredients);
+		Recipie recipie = new Recipie("Gofry", description);
 		recipieService.save(recipie);
+		saveRecipieIngredients(allIngredients, recipie);
 	}
 
 	private void initializeIngredients() {
