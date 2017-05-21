@@ -1,0 +1,38 @@
+function editRecipieIngredient(id) {
+	var recipieId = $('#recipieId_' + id).html();
+	$('#recipieId_' + id).html( '<input type="text" id="newRecipieId_' + id + '" name="recipieId" value="' + recipieId + '" >');
+	var ingredientId = $('#ingredientId_' + id).html();
+	$('#ingredientId_' + id).html('<input type="text" id="newIngredientId_' + id + '" name="ingredientId" value="' + ingredientId + '" >');
+	$('#edit_' + id).hide();
+	$('#save_' + id).show();
+}
+
+function updateRecipieIngredient(url, id) {
+	var requestParams = {
+		id : id,
+		recipieId : $('#newRecipieId_' + id).val(),
+		ingredientId : $('#newIngredientId_' + id).val()
+		
+	}
+	var csrf = document.forms["myFormRecipieIngredient"]["_csrf"].value;
+	$.ajax({
+		type : "POST",
+		url : url,
+		contentType : "application/json",
+		headers : {
+			"X-CSRF-TOKEN" : csrf
+		},
+		data : JSON.stringify(requestParams),
+		success : function(responseValue) {
+			$('#recipieId_'+id).html(requestParams.recipieId);
+			$('#ingredientId_'+id).html(requestParams.ingredientId);
+			$('#save_'+id).hide();
+			$('#edit_'+id).show();
+		},
+		error : function(url) {
+			location.reload();
+		}
+
+	});
+
+}

@@ -71,4 +71,9 @@ public class IngredientService {
 		repository.delete(ingredient);
 	}
 
+	public Ingredient findOne(Long id) {
+		return repository.findOne(id);
+		
+	}
+
 }

@@ -27,7 +27,7 @@ public class TableInfoService {
 		List<String> ingredientColumns = Arrays.asList("id", "name");
 		List<String> tableLabelColumns = Arrays.asList("id", "tableName", "label");
 		List<String> recipieColumns = Arrays.asList("id", "title", "description");
-		List<String> recipieIngredientsColumns = Arrays.asList("recipie_id", "ingredient_id");
+		List<String> recipieIngredientsColumns = Arrays.asList("id", "recipie_id", "ingredient_id");
 		List<String> userColumns = Arrays.asList("id", "login", "password", "label");
 		
 		TableInfoDTOBuilder builder = TableInfoDTO.builder()

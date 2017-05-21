@@ -19,6 +19,7 @@
 
 	<jsp:include page="include/ingredient.jsp"/>
 	<jsp:include page="include/recipie.jsp"/>
+	<jsp:include page="include/recipieIngredient.jsp"/>
 
 </body>
 </html>

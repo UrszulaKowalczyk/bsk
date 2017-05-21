@@ -1,11 +1,9 @@
 package com.ukowalczyk.bsk.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -20,22 +18,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class RecipieIngredient {
 
-	@Embeddable
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	public static class Id implements Serializable {
-		private static final long serialVersionUID = 595894804228146120L;
-		@Column(name = "RECIPIE_ID")
-		protected Long recipieId;
-		@Column(name = "INGREDIENT_ID")
-		protected Long ingredientId;
-	}
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	@EmbeddedId
-	private Id id = new Id();
+	@Column(name = "RECIPIE_ID")
+	private Long recipieId;
+	@Column(name = "INGREDIENT_ID")
+	private Long ingredientId;
 
 	@ManyToOne
 	@JoinColumn(name = "RECIPIE_ID", insertable = false, updatable = false)
@@ -46,8 +39,8 @@ public class RecipieIngredient {
 	private Ingredient ingredient;
 
 	public RecipieIngredient(Recipie recipie, Ingredient ingredient) {
-		this.id.ingredientId = ingredient.getId();
-		this.id.recipieId = recipie.getId();
+		this.ingredientId = ingredient.getId();
+		this.recipieId = recipie.getId();
 		ingredient.getRecipieIngredients().add(this);
 		recipie.getRecipieIngredients().add(this);
 	}

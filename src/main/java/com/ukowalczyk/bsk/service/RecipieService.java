@@ -22,4 +22,8 @@ public class RecipieService {
 		repository.save(recipie);
 	}
 
+	public Recipie findOne(Long id) {
+		return repository.findOne(id);
+	}
+
 }
