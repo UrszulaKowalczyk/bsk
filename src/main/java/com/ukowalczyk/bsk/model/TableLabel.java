@@ -21,12 +21,18 @@ public class TableLabel {
 	@GeneratedValue
 	private Long id;
 
+	private int label;
+	
 	@Column(nullable = false)
 	private String tableName;
 
-	private int label;
 
 	public TableLabel(String tableName, int label) {
+		this.tableName = tableName;
+		this.label = label;
+	}
+	
+	public TableLabel(int label, String tableName) {
 		this.tableName = tableName;
 		this.label = label;
 	}

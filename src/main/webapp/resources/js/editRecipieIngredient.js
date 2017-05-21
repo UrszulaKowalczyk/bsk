@@ -1,10 +1,13 @@
 function editRecipieIngredient(id) {
+	
 	var recipieId = $('#recipieId_' + id).html();
 	$('#recipieId_' + id).html( '<input type="text" id="newRecipieId_' + id + '" name="recipieId" value="' + recipieId + '" >');
-	var ingredientId = $('#ingredientId_' + id).html();
+	
+	var ingredientId = $('#ingredientId_' + id).html();	
 	$('#ingredientId_' + id).html('<input type="text" id="newIngredientId_' + id + '" name="ingredientId" value="' + ingredientId + '" >');
-	$('#edit_' + id).hide();
-	$('#save_' + id).show();
+	
+	$('#edit_recipieIngredient_' + id).hide();
+	$('#save_recipieIngredient_' + id).show();
 }
 
 function updateRecipieIngredient(url, id) {
@@ -26,8 +29,8 @@ function updateRecipieIngredient(url, id) {
 		success : function(responseValue) {
 			$('#recipieId_'+id).html(requestParams.recipieId);
 			$('#ingredientId_'+id).html(requestParams.ingredientId);
-			$('#save_'+id).hide();
-			$('#edit_'+id).show();
+			$('#save_recipieIngredient_'+id).hide();
+			$('#edit_recipieIngredient_'+id).show();
 		},
 		error : function(url) {
 			location.reload();

@@ -21,12 +21,12 @@
 					<td>${user.id}</td>
 					<td id="login_${user.id}">${user.login}</td>
 					<td id="password_${user.id}">${user.password}</td>
-					<td id="label_${user.id}">${user.label}</td>
+					<td id="label_user_${user.id}">${user.label}</td>
 					<c:if test="${userTableInfo.canWrite}">
 						<td>
-							<button type="button" id="edit_${user.id}"
+							<button type="button" id="edit_user_${user.id}"
 								onclick="editUser(${user.id})">Edit</button>
-							<button type="button" id="save_${user.id}"
+							<button type="button" id="save_user_${user.id}"
 								style="display: none;"
 								onclick="updateUser('<c:url value="/updateUser" />', ${user.id});">
 								Save</button>

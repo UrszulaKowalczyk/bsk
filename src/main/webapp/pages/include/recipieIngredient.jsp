@@ -22,9 +22,9 @@
 					<td id="ingredientId_${recipieIngredient.id}">${recipieIngredient.ingredientId}</td>
 					<c:if test="${recipieIngredientTableInfo.canWrite}">
 						<td>
-							<button type="button" id="edit_${recipieIngredient.id}"
+							<button type="button" id="edit_recipieIngredient_${recipieIngredient.id}"
 								onclick="editRecipieIngredient(${recipieIngredient.id})">Edit</button>
-							<button type="button" id="save_${recipieIngredient.id}"
+							<button type="button" id="save_recipieIngredient_${recipieIngredient.id}"
 								style="display: none;"
 								onclick="updateRecipieIngredient('<c:url value="/updateRecipieIngredient" />', ${recipieIngredient.id});">
 								Save</button>

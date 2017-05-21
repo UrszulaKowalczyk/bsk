@@ -24,8 +24,8 @@
 					<td id="name_${ingredient.id}">${ingredient.name}</td>
 					<c:if test="${ingredientTableInfo.canWrite}">
 						<td>
-							<button type="button" id="edit_${ingredient.id}" onclick="editIngredient(${ingredient.id})">Edit</button>
-							<button type="button" id="save_${ingredient.id}" style="display: none;"
+							<button type="button" id="edit_ingredient_${ingredient.id}" onclick="editIngredient(${ingredient.id})">Edit</button>
+							<button type="button" id="save_ingredient_${ingredient.id}" style="display: none;"
 							onclick="updateIngredient('<c:url value="/updateIngredient" />', ${ingredient.id});" > Save </button>
 						</td>
 <!-- 						<td>

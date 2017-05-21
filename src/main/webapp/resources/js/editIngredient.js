@@ -4,8 +4,8 @@ function editIngredient(id) {
 	$('#name_' + id).html(
 			'<input type="text" id="newName_' + id + '" name="name" value="'
 					+ name + '" >');
-	$('#edit_' + id).hide();
-	$('#save_' + id).show();
+	$('#edit_ingredient_' + id).hide();
+	$('#save_ingredient_' + id).show();
 }
 
 function updateIngredient(url, id) {
@@ -24,8 +24,8 @@ function updateIngredient(url, id) {
 		data : JSON.stringify(requestParams),
 		success : function(responseValue) {
 			$('#name_'+id).html(requestParams.name);
-			$('#save_'+id).hide();
-			$('#edit_'+id).show();
+			$('#save_ingredient_'+id).hide();
+			$('#edit_ingredient_'+id).show();
 		},
 		error : function(url) {
 			location.reload();

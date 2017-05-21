@@ -23,9 +23,9 @@
 					<td id="description_${recipie.id}">${recipie.description}</td>
 					<c:if test="${recipieTableInfo.canWrite}">
 						<td>
-							<button type="button" id="edit_${recipie.id}"
+							<button type="button" id="edit_recipie_${recipie.id}"
 								onclick="editRecipie(${recipie.id})">Edit</button>
-							<button type="button" id="save_${recipie.id}"
+							<button type="button" id="save_recipie_${recipie.id}"
 								style="display: none;"
 								onclick="updateRecipie('<c:url value="/updateRecipie" />', ${recipie.id});">
 								Save</button>

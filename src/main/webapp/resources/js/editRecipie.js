@@ -3,8 +3,8 @@ function editRecipie(id) {
 	$('#title_' + id).html( '<input type="text" id="newTitle_' + id + '" name="title" value="' + title + '" >');
 	var description = $('#description_' + id).html();
 	$('#description_' + id).html('<input type="text" id="newDescription_' + id + '" name="description" value="' + description + '" >');
-	$('#edit_' + id).hide();
-	$('#save_' + id).show();
+	$('#edit_recipie_' + id).hide();
+	$('#save_recipie_' + id).show();
 }
 
 function updateRecipie(url, id) {
@@ -26,8 +26,8 @@ function updateRecipie(url, id) {
 		success : function(responseValue) {
 			$('#title_'+id).html(requestParams.title);
 			$('#description_'+id).html(requestParams.description);
-			$('#save_'+id).hide();
-			$('#edit_'+id).show();
+			$('#save_recipie_'+id).hide();
+			$('#edit_recipie_'+id).show();
 		},
 		error : function(url) {
 			location.reload();

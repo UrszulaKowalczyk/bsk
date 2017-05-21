@@ -6,10 +6,10 @@ function editUser(id) {
 	$('#password_' + id).html('<input type="text" id="newPassword_' + id + '" name="password" value="' + password + '" >');
 	
 	var label = $('#label_' + id).html();
-	$('#label_' + id).html('<input type="text" id="newLabel_' + id + '" name="label" value="' + label + '" >');
+	$('#label_user_' + id).html('<input type="text" id="newLabel_' + id + '" name="label" value="' + label + '" >');
 	
-	$('#edit_' + id).hide();
-	$('#save_' + id).show();
+	$('#edit_user_' + id).hide();
+	$('#save_user_' + id).show();
 }
 
 function updateUser(url, id) {
@@ -32,9 +32,9 @@ function updateUser(url, id) {
 		success : function(responseValue) {
 			$('#login_'+id).html(requestParams.login);
 			$('#password_'+id).html(requestParams.password);
-			$('#label_'+id).html(requestParams.label);
-			$('#save_'+id).hide();
-			$('#edit_'+id).show();
+			$('#label_user_'+id).html(requestParams.label);
+			$('#save_user_'+id).hide();
+			$('#edit_user_'+id).show();
 			location.reload();
 		},
 		error : function(url) {
