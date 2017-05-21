@@ -21,7 +21,7 @@ public class IngredientService {
 
 	@Autowired
 	private IngredientRepository repository;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -54,13 +54,17 @@ public class IngredientService {
 	public List<Ingredient> create(String[] ingredients, Principal principal) {
 		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_INGREDIENT))
 			return Collections.emptyList();
-		
+
 		List<Ingredient> listOfIngredients = new ArrayList<>();
 		for (String ingredientName : ingredients) {
 			Ingredient ingredient = new Ingredient(ingredientName);
 			listOfIngredients.add(ingredient);
 		}
 		return repository.save(listOfIngredients);
+	}
+
+	public Ingredient find(Long id) {
+		return repository.findOne(id);
 	}
 
 }
