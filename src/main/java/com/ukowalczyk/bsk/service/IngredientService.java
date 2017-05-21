@@ -67,4 +67,8 @@ public class IngredientService {
 		return repository.findOne(id);
 	}
 
+	public void delete(Ingredient ingredient) {
+		repository.delete(ingredient);
+	}
+
 }

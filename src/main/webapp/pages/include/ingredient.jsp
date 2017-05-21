@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="<c:url value="/resources/js/editIngredient.js"/>"></script>
+<script src="<c:url value="/resources/js/deleteIngredient.js"/>"></script>
 <div class="container">
 	<h2>${ingredientTableInfo.name}(${ingredientTableInfo.level})</h2>
 
@@ -16,7 +17,8 @@
 		<tbody>
 			<c:forEach items="${ingredientList}" var="ingredient">
 	
-				<tr>
+				<tr id="ingredient_${ingredient.id}">
+				
 				
 					<td>${ingredient.id}</td>
 					<td id="name_${ingredient.id}">${ingredient.name}</td>
@@ -26,8 +28,12 @@
 							<button type="button" id="save_${ingredient.id}" style="display: none;"
 							onclick="updateIngredient('<c:url value="/updateIngredient" />', ${ingredient.id});" > Save </button>
 						</td>
+<!-- 						<td>
+							<button type="button" id="delete_${ingredient.id}"
+							onclick="deleteIngredient('<c:url value="/deleteIngredient" />', ${ingredient.id});" > Delete </button>
+						</td> -->
 					</c:if>
-					
+						
 			
 				</tr>
 				

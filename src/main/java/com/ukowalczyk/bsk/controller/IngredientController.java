@@ -43,12 +43,23 @@ public class IngredientController {
 	}
 
 	@RequestMapping(value = "/updateIngredient", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<String> updateIngredient(@RequestBody Ingredient updatedIngredient, Principal principal)  {
+	public ResponseEntity<String> updateIngredient(@RequestBody Ingredient updatedIngredient, Principal principal) {
 
 		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_INGREDIENT))
-			return  new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
-		
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+
 		ingredientService.save(updatedIngredient);
+
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/deleteIngredient", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> deleteIngredient(@RequestBody Ingredient ingredient, Principal principal) {
+
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_INGREDIENT))
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+
+		ingredientService.delete(ingredient);
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
