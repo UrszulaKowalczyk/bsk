@@ -20,9 +20,9 @@
 
 	<jsp:include page="include/user.jsp"/>
 	<jsp:include page="include/tableLabel.jsp"/>
-	<jsp:include page="include/ingredient.jsp"/>
 	<jsp:include page="include/recipie.jsp"/>
 	<jsp:include page="include/recipieIngredient.jsp"/>
-
+	<jsp:include page="include/ingredient.jsp"/>
+	
 </body>
 </html>

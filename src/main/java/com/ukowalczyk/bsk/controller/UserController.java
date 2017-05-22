@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +27,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String createUser(HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {
 
@@ -35,7 +39,7 @@ public class UserController {
 		String[] password = req.getParameterValues("password");
 		String[] label = req.getParameterValues("label");
 
-		User user = new User(login[0], password[0], Integer.parseInt(label[0]));
+		User user = new User(login[0], passwordEncoder.encode(password[0]), Integer.parseInt(label[0]));
 		userService.save(user);
 
 		return "redirect:/";

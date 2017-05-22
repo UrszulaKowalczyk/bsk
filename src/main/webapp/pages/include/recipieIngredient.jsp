@@ -1,15 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="<c:url value="/resources/js/editRecipieIngredient.js"/>"></script>
 <div class="container">
-	<h2>${recipieIngredientTableInfo.name}(${recipieIngredientTableInfo.level})</h2>
+	<h2>${recipieIngredientTableInfo.name}( Label: ${recipieIngredientTableInfo.level} )</h2>
 
-	<table class="table">
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<c:forEach items="${recipieIngredientTableInfo.columnsNames}" var="columnName">
 					<th>${columnName}</th>
 				</c:forEach>
-				<th></th>
+				
 			</tr>
 		</thead>
 		<tbody>

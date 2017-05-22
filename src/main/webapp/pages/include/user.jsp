@@ -1,15 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="<c:url value="/resources/js/editUser.js"/>"></script>
 <div class="container">
-	<h2>${userTableInfo.name}(${userTableInfo.level})</h2>
+	<h2>${userTableInfo.name}( Label: ${userTableInfo.level} )</h2>
 
-	<table class="table">
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<c:forEach items="${userTableInfo.columnsNames}" var="columnName">
 					<th>${columnName}</th>
 				</c:forEach>
-				<th></th>
+
 			</tr>
 		</thead>
 		<tbody>
