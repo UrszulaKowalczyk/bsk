@@ -21,7 +21,7 @@ import com.ukowalczyk.bsk.service.IngredientService;
 import com.ukowalczyk.bsk.service.UserService;
 
 @Controller
-public class IngredientController {
+public class IngredientController extends AbstractController {
 
 	@Autowired
 	private UserService userService;

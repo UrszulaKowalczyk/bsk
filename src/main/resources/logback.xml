@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS, ${database.serverTimezone}} [%-5level] [%-5thread] %logger{50}.%M:%line - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+    <logger name="com.ukowalczyk.bsk" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    
+    <logger name="org.hibernate.SQL" level="WARN" /> <!-- DEBUG -->
+    <logger name="org.hibernate.type" level="WARN" /> <!-- TRACE -->
+    
+    <logger name="org.hibernate" level="OFF" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    
+    <logger name="org.springframework.orm.jpa" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    
+    <logger name="org.springframework.transaction" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+    </root>
+    
+</configuration>

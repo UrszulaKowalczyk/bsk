@@ -22,7 +22,7 @@ import com.ukowalczyk.bsk.model.User;
 import com.ukowalczyk.bsk.service.UserService;
 
 @Controller
-public class UserController {
+public class UserController extends AbstractController {
 
 	@Autowired
 	private UserService userService;

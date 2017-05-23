@@ -21,12 +21,13 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String login;
 
 	@Column(nullable = false)
 	private String password;
 
+	@Column(nullable = false)
 	private int label;
 
 	public User(String login, String password, int label) {

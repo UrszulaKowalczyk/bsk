@@ -21,7 +21,7 @@ import com.ukowalczyk.bsk.service.RecipieService;
 import com.ukowalczyk.bsk.service.UserService;
 
 @Controller
-public class RecipieController {
+public class RecipieController extends AbstractController {
 
 	@Autowired
 	private UserService userService;

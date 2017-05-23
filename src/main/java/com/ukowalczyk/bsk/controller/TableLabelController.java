@@ -21,7 +21,7 @@ import com.ukowalczyk.bsk.service.TableLabelService;
 import com.ukowalczyk.bsk.service.UserService;
 
 @Controller
-public class TableLabelController {
+public class TableLabelController extends AbstractController {
 
 	@Autowired
 	private UserService userService;

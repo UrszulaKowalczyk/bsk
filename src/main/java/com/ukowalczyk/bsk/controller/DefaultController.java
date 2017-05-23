@@ -25,55 +25,61 @@ import com.ukowalczyk.bsk.service.TableLabelService;
 import com.ukowalczyk.bsk.service.UserService;
 
 @Controller
-public class DefaultController {
+public class DefaultController extends AbstractController {
 
 	@Autowired
 	private TableInfoService tableInfoService;
-	
+
 	@Autowired
 	private IngredientService ingredientService;
-	
+
 	@Autowired
 	private RecipieService recipieService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private TableLabelService tableLabelService;
-	
+
 	@Autowired
 	private RecipieIngredientService recipieIngredientService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showTable(Model model, Principal principal) {
-		
+
 		model.addAttribute("user", principal.getName());
-		
-		TableInfoDTO ingredientTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_INGREDIENT, principal);
+
+		TableInfoDTO ingredientTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_INGREDIENT,
+				principal);
 		TableInfoDTO recipieTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_RECIPIE, principal);
-		TableInfoDTO recipieIngredientTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_RECIPIE_INGREDIENT, principal);
+		TableInfoDTO recipieIngredientTableInfo = tableInfoService
+				.getTableInfo(DatabaseInitializer.TABLE_RECIPIE_INGREDIENT, principal);
 		TableInfoDTO userTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_USER, principal);
-		TableInfoDTO tableLabelTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_TABLELABEL, principal);
-		
+		TableInfoDTO tableLabelTableInfo = tableInfoService.getTableInfo(DatabaseInitializer.TABLE_TABLELABEL,
+				principal);
+
 		model.addAttribute("ingredientTableInfo", ingredientTableInfo);
 		model.addAttribute("recipieTableInfo", recipieTableInfo);
 		model.addAttribute("recipieIngredientTableInfo", recipieIngredientTableInfo);
 		model.addAttribute("userTableInfo", userTableInfo);
 		model.addAttribute("tableLabelTableInfo", tableLabelTableInfo);
-		
-		List<Ingredient> ingredientList = (ingredientTableInfo.isCanRead()) ? ingredientService.findAll() : Collections.emptyList();
+
+		List<Ingredient> ingredientList = (ingredientTableInfo.isCanRead()) ? ingredientService.findAll()
+				: Collections.emptyList();
 		List<Recipie> recipieList = (recipieTableInfo.isCanRead()) ? recipieService.findAll() : Collections.emptyList();
-		List<RecipieIngredient> recipieIngredientList = (recipieIngredientTableInfo.isCanRead()) ? recipieIngredientService.findAll() : Collections.emptyList();
+		List<RecipieIngredient> recipieIngredientList = (recipieIngredientTableInfo.isCanRead())
+				? recipieIngredientService.findAll() : Collections.emptyList();
 		List<User> userList = (userTableInfo.isCanRead()) ? userService.findAll() : Collections.emptyList();
-		List<TableLabel> tableLabelList = (tableLabelTableInfo.isCanRead()) ? tableLabelService.findAll() : Collections.emptyList();
-		
+		List<TableLabel> tableLabelList = (tableLabelTableInfo.isCanRead()) ? tableLabelService.findAll()
+				: Collections.emptyList();
+
 		model.addAttribute("ingredientList", ingredientList);
 		model.addAttribute("recipieList", recipieList);
 		model.addAttribute("recipieIngredientList", recipieIngredientList);
 		model.addAttribute("userList", userList);
 		model.addAttribute("tableLabelList", tableLabelList);
-		
+
 		return "showTables";
 	}
 
