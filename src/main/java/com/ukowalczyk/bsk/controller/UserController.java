@@ -1,6 +1,7 @@
 package com.ukowalczyk.bsk.controller;
 
 import java.security.Principal;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -63,6 +67,12 @@ public class UserController extends AbstractController {
 		}
 		
 		userService.save(updatedUser);
+		
+		if(!oldUser.getLogin().equals(updatedUser.getLogin())) {
+			Authentication authentication = new UsernamePasswordAuthenticationToken(updatedUser.getLogin(), updatedUser.getPassword(), Collections.emptyList());
+			//Authentication result = authenticationManager.authenticate(authentication);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		}
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
