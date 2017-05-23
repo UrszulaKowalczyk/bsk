@@ -30,11 +30,6 @@ function updateUser(url, id) {
 		},
 		data : JSON.stringify(requestParams),
 		success : function(responseValue) {
-			$('#login_'+id).html(requestParams.login);
-			$('#password_'+id).html(requestParams.password);
-			$('#label_user_'+id).html(requestParams.label);
-			$('#save_user_'+id).hide();
-			$('#edit_user_'+id).show();
 			location.reload();
 		},
 		error : function(url) {

@@ -1,5 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="<c:url value="/resources/js/editTableLabel.js"/>"></script>
+
+<c:if test="${tableLabelTableInfo.visible}">
+
 <div class="container">
 	<h2>${tableLabelTableInfo.name}( Label: ${tableLabelTableInfo.level} )</h2>
 
@@ -58,3 +61,5 @@
 
 
 </div>
+
+</c:if>

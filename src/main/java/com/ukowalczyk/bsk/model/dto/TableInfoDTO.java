@@ -26,4 +26,6 @@ public class TableInfoDTO {
 	private boolean canWrite;
 
 	private boolean canRead;
+
+	private boolean visible;
 }

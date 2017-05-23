@@ -27,10 +27,7 @@ function updateRecipieIngredient(url, id) {
 		},
 		data : JSON.stringify(requestParams),
 		success : function(responseValue) {
-			$('#recipieId_'+id).html(requestParams.recipieId);
-			$('#ingredientId_'+id).html(requestParams.ingredientId);
-			$('#save_recipieIngredient_'+id).hide();
-			$('#edit_recipieIngredient_'+id).show();
+			location.reload();
 		},
 		error : function(url) {
 			location.reload();

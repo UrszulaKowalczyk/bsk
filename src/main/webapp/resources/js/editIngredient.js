@@ -23,9 +23,7 @@ function updateIngredient(url, id) {
 		},
 		data : JSON.stringify(requestParams),
 		success : function(responseValue) {
-			$('#name_'+id).html(requestParams.name);
-			$('#save_ingredient_'+id).hide();
-			$('#edit_ingredient_'+id).show();
+			location.reload();
 		},
 		error : function(url) {
 			location.reload();

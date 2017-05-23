@@ -2,7 +2,7 @@ function deleteRow(url, id) {
 	var requestParams = {
 		id : id
 	}
-	var csrf = document.forms["myForm"]["_csrf"].value;
+	var csrf = document.forms["form"]["_csrf"].value;
 	$.ajax({
 		type : "POST",
 		url : url,

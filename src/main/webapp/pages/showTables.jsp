@@ -23,6 +23,9 @@
 	<jsp:include page="include/recipie.jsp"/>
 	<jsp:include page="include/recipieIngredient.jsp"/>
 	<jsp:include page="include/ingredient.jsp"/>
-	
+	<form name="form" >
+		<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+	</form>
 </body>
 </html>

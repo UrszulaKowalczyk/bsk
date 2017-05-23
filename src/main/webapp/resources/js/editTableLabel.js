@@ -27,10 +27,6 @@ function updateTableLabel(url, id) {
 		},
 		data : JSON.stringify(requestParams),
 		success : function(responseValue) {
-			$('#label_'+id).html(requestParams.label);
-			$('#tableName_'+id).html(requestParams.tableName);
-			$('#save_tableLabel_'+id).hide();
-			$('#edit_tableLabel_'+id).show();
 			location.reload();
 		},
 		error : function(url) {

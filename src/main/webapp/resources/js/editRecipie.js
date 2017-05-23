@@ -24,10 +24,7 @@ function updateRecipie(url, id) {
 		},
 		data : JSON.stringify(requestParams),
 		success : function(responseValue) {
-			$('#title_'+id).html(requestParams.title);
-			$('#description_'+id).html(requestParams.description);
-			$('#save_recipie_'+id).hide();
-			$('#edit_recipie_'+id).show();
+			location.reload();
 		},
 		error : function(url) {
 			location.reload();

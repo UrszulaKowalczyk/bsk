@@ -1,5 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="<c:url value="/resources/js/editRecipieIngredient.js"/>"></script>
+
+<c:if test="${recipieIngredientTableInfo.visible}">
+
 <div class="container">
 	<h2>${recipieIngredientTableInfo.name}( Label: ${recipieIngredientTableInfo.level} )</h2>
 
@@ -57,3 +60,5 @@
 
 
 </div>
+
+</c:if>

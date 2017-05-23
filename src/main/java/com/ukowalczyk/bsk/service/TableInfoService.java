@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ukowalczyk.bsk.initializer.DatabaseInitializer;
+import com.ukowalczyk.bsk.model.TableLabel;
 import com.ukowalczyk.bsk.model.dto.TableInfoDTO;
 import com.ukowalczyk.bsk.model.dto.TableInfoDTO.TableInfoDTOBuilder;
 
@@ -30,10 +31,18 @@ public class TableInfoService {
 		List<String> recipieIngredientsColumns = Arrays.asList("id", "recipie_id", "ingredient_id");
 		List<String> userColumns = Arrays.asList("id", "login", "password", "label");
 		
+		TableLabel tableLabel = tableLabelService.findByTableName(tableName);
+		if( null == tableLabel) {
+			return TableInfoDTO.builder()
+					.visible(false)
+					.build();
+		}
+		
 		TableInfoDTOBuilder builder = TableInfoDTO.builder()
 			.canWrite(userService.checkIfUserCanWrite(principal, tableName))
 			.canRead(userService.checkIfUserCanRead(principal, tableName))
-			.level(tableLabelService.findByTableName(tableName).getLabel());
+			.level(tableLabel.getLabel())
+			.visible(true);
 		
 		switch (tableName) {
 		
