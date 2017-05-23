@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +30,13 @@ public class Recipie {
 	private Long id;
 
 	@Column(nullable = false)
+	@Length(min = 1)
+	@NotBlank
 	private String title;
 
-	@Column(nullable = true, length = 2000)
+	@Column(nullable = false, length = 2000)
+	@Length(min = 1)
+	@NotBlank
 	private String description;
 
 	@OneToMany(mappedBy = "recipie", fetch = FetchType.EAGER)

@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,8 +30,10 @@ public class Ingredient {
 	private Long id;
 
 	@Column(nullable = false)
+	@Length(min = 1)
+	@NotBlank
 	private String name;
-	
+
 	@OneToMany(mappedBy = "ingredient", fetch = FetchType.EAGER)
 	private List<RecipieIngredient> recipieIngredients = new ArrayList<>();
 

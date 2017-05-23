@@ -45,8 +45,8 @@
 				<c:if test="${tableLabelTableInfo.canWrite}">
 					<tr>
 						<td><input type="text" /></td>
-						<td><input name="label" type="text" /></td>
 						<td><input name="tableName" type="text" /></td>
+						<td><input name="label" type="text" /></td>
 						<td><input type="submit" value="Save" /></td>
 					</tr>
 					<input type="hidden" name="${_csrf.parameterName}"

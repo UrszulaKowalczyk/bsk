@@ -4,6 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,9 +26,12 @@ public class TableLabel {
 	private Long id;
 
 	@Column(nullable = false)
+	@Min(1)
 	private int label;
 
 	@Column(nullable = false, unique = true)
+	@Length(min = 1)
+	@NotBlank
 	private String tableName;
 
 	public TableLabel(String tableName, int label) {
