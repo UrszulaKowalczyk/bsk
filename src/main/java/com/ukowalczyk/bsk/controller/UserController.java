@@ -68,6 +68,8 @@ public class UserController extends AbstractController {
 		
 		userService.save(updatedUser);
 		
+		boolean userChangingHimself = principal.getName().equals(oldUser.getLogin());
+		if(userChangingHimself)
 		if(!oldUser.getLogin().equals(updatedUser.getLogin())) {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(updatedUser.getLogin(), updatedUser.getPassword(), Collections.emptyList());
 			//Authentication result = authenticationManager.authenticate(authentication);

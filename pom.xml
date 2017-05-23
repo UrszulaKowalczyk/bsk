@@ -8,10 +8,76 @@
 	<packaging>war</packaging>
 	<name>bsk</name>
 	<description></description>
+	
+	<profiles>
+		<profile>
+			<id>localEnv</id>
+			<properties>
+				<spring.profiles.active>localEnv</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>remoteEnv</id>
+			<properties>
+				<spring.profiles.active>remoteEnv</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
+		
+		<filters>
+			<filter>${project.basedir}/src/main/resources/profiles/${spring.profiles.active}/application.properties
+            </filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/profiles/**/*.*</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
 		<plugins>
+
+			<!-- Copy libraries to lib folder -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Packaging to war -->
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin.version}</version>
+				<configuration>
+					<filters>
+						<filter>
+							${project.basedir}/src/main/resources/profiles/${spring.profiles.active}/application.properties
+						</filter>
+					</filters>
+					<webResources>
+						<webResource>
+							<directory>src/main/webapp</directory>
+							<filtering>true</filtering>
+							<targetPath>/</targetPath>
+						</webResource>
+					</webResources>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -64,6 +130,7 @@
 		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven-war-plugin.version>3.0.0</maven-war-plugin.version>
 
 		<spring.version>4.3.7.RELEASE</spring.version>
 		<spring.security.version>4.2.2.RELEASE</spring.security.version>
