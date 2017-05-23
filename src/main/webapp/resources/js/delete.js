@@ -1,4 +1,4 @@
-function deleteIngredient(url, id) {
+function deleteRow(url, id) {
 	var requestParams = {
 		id : id
 	}
@@ -12,10 +12,10 @@ function deleteIngredient(url, id) {
 		},
 		data : JSON.stringify(requestParams),
 		success : function(responseValue) {
-			$('#ingredient_' + id).remove();
+			location.reload();
 		},
 		error : function(url) {
-			//location.reload();
+			location.reload();
 		}
 
 	});

@@ -53,5 +53,16 @@ public class TableLabelController extends AbstractController {
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/deleteTableLabel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> delete(@RequestBody TableLabel tableLabel, Principal principal) {
+
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_TABLELABEL))
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+
+		tableLabelService.deleteById(tableLabel.getId());
+
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 
 }

@@ -26,4 +26,8 @@ public class RecipieService {
 		return repository.findOne(id);
 	}
 
+	public void deleteById(Long id) {
+		repository.delete(id);
+	}
+
 }

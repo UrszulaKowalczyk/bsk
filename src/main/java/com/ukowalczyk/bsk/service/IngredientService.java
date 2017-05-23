@@ -67,13 +67,12 @@ public class IngredientService {
 		return repository.findOne(id);
 	}
 
-	public void delete(Ingredient ingredient) {
-		repository.delete(ingredient);
-	}
-
 	public Ingredient findOne(Long id) {
-		return repository.findOne(id);
-		
+		return repository.findOne(id);	
+	}
+	
+	public void deleteById(Long id) {
+		repository.delete(id);
 	}
 
 }

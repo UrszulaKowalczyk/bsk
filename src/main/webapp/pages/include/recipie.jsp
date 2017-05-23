@@ -30,10 +30,10 @@
 								onclick="updateRecipie('<c:url value="/updateRecipie" />', ${recipie.id});">
 								Save</button>
 						</td>
-						<!-- 						<td>
-							<button type="button" id="delete_${ingredient.id}"
-							onclick="deleteIngredient('<c:url value="/deleteIngredient" />', ${ingredient.id});" > Delete </button>
-						</td> -->
+						<td>
+							<button type="button" id="delete_recipie_${recipie.id}"
+							onclick="deleteRow('<c:url value="/deleteRecipie" />', ${recipie.id});" > Delete </button>
+						</td>
 					</c:if>
 
 

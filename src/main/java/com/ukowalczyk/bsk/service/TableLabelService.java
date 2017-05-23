@@ -34,4 +34,8 @@ public class TableLabelService {
 		return repository.findAll();
 	}
 
+	public void deleteById(Long id) {
+		repository.delete(id);
+	}
+
 }

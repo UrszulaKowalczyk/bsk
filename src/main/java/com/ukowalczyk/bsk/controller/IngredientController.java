@@ -59,7 +59,7 @@ public class IngredientController extends AbstractController {
 		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_INGREDIENT))
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 
-		ingredientService.delete(ingredient);
+		ingredientService.deleteById(ingredient.getId());
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

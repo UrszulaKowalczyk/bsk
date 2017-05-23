@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ukowalczyk.bsk.model.Ingredient;
@@ -23,6 +25,8 @@ public class UserService {
 	private IngredientService ingredientService;
 	@Autowired
 	private TableLabelService tableLabelService;
+	
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	public List<Recipie> getRecipies(Principal principal) {
 		if (!checkIfUserCanRead(principal, "recipie"))
@@ -67,13 +71,21 @@ public class UserService {
 	public void save(User user) {
 		repository.save(user);
 	}
-
+	
 	public User findByLogin(Principal principal) {
 		return repository.findByLogin(principal.getName());
+	}
+	
+	public User findOne(Long id) {
+		return repository.findOne(id);
 	}
 
 	public List<User> findAll() {
 		return repository.findAll();
+	}
+
+	public void delete(User user) {
+		repository.delete(user);
 	}
 
 }

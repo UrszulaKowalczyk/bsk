@@ -52,5 +52,16 @@ public class RecipieIngredientController extends AbstractController {
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/deleteRecipieIngredient", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> delete(@RequestBody RecipieIngredient recipieIngredient, Principal principal) {
+
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_RECIPIE_INGREDIENT))
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+
+		recipieIngredientService.deleteById(recipieIngredient.getId());
+
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 
 }

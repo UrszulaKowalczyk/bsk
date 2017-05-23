@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="<c:url value="/resources/js/editIngredient.js"/>"></script>
-<script src="<c:url value="/resources/js/deleteIngredient.js"/>"></script>
+
 <div class="container">
 	<h2>${ingredientTableInfo.name}( Label: ${ingredientTableInfo.level} )</h2>
 
@@ -28,10 +28,10 @@
 							<button type="button" id="save_ingredient_${ingredient.id}" style="display: none;"
 							onclick="updateIngredient('<c:url value="/updateIngredient" />', ${ingredient.id});" > Save </button>
 						</td>
-<!-- 						<td>
-							<button type="button" id="delete_${ingredient.id}"
-							onclick="deleteIngredient('<c:url value="/deleteIngredient" />', ${ingredient.id});" > Delete </button>
-						</td> -->
+ 						<td>
+							<button type="button" id="delete_ingredient_${ingredient.id}"
+							onclick="deleteRow('<c:url value="/deleteIngredient" />', ${ingredient.id});" > Delete </button>
+						</td>
 					</c:if>
 						
 			

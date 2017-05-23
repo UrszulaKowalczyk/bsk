@@ -27,6 +27,9 @@ public class UserController extends AbstractController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private LoginController loginController;
+
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
@@ -51,7 +54,33 @@ public class UserController extends AbstractController {
 		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_USER))
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 
+		User oldUser = userService.findOne(updatedUser.getId());
+		
+		String newPassword = updatedUser.getPassword();
+		if(!oldUser.getPassword().equals(newPassword)) {
+			String encodedNewPassword = passwordEncoder.encode(newPassword);
+			updatedUser.setPassword(encodedNewPassword);
+		}
+		
 		userService.save(updatedUser);
+
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> delete(@RequestBody User user, Principal principal, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_TABLELABEL))
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+
+		user = userService.findOne(user.getId());
+		
+		if (principal.getName().equals(user.getLogin())) {
+			loginController.logoutDo(request, response);
+		}
+
+		userService.delete(user);
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

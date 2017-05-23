@@ -54,4 +54,15 @@ public class RecipieController extends AbstractController {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/deleteRecipie", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> deleteRecipie(@RequestBody Recipie recipie, Principal principal) {
+
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_RECIPIE))
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+
+		recipieService.deleteById(recipie.getId());
+
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
 }

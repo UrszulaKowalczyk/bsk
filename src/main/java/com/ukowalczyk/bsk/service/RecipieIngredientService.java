@@ -41,4 +41,8 @@ public class RecipieIngredientService {
 		return create(Long.parseLong(recipieId), Long.parseLong(ingredientId));
 	}
 
+	public void deleteById(Long id) {
+		repository.delete(id);
+	}
+
 }

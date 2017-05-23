@@ -5,7 +5,7 @@ function editUser(id) {
 	var password = $('#password_' + id).html();
 	$('#password_' + id).html('<input type="text" id="newPassword_' + id + '" name="password" value="' + password + '" >');
 	
-	var label = $('#label_' + id).html();
+	var label = $('#label_user_' + id).html();
 	$('#label_user_' + id).html('<input type="text" id="newLabel_' + id + '" name="label" value="' + label + '" >');
 	
 	$('#edit_user_' + id).hide();
