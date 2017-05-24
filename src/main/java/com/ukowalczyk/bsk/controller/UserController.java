@@ -33,8 +33,18 @@ public class UserController extends AbstractController {
 
 	@Autowired
 	private LoginController loginController;
+	
+	@Autowired
+	private DefaultController defaultController;
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
+	
+	@RequestMapping(value = "/user")
+	public String user(Model model, Principal principal){
+		model.addAttribute("shownTable", "user");
+		return defaultController.showTable(model, principal);
+	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String createUser(HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {

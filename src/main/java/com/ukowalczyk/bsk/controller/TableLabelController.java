@@ -25,8 +25,18 @@ public class TableLabelController extends AbstractController {
 
 	@Autowired
 	private UserService userService;
+	
 	@Autowired
 	private TableLabelService tableLabelService;
+	
+	@Autowired
+	private DefaultController defaultController;
+
+	@RequestMapping(value = "/tableLabel")
+	public String user(Model model, Principal principal) {
+		model.addAttribute("shownTable", "tableLabel");
+		return defaultController.showTable(model, principal);
+	}
 
 	@RequestMapping(value = "/addTableLabel", method = RequestMethod.POST)
 	public String createTableLabel(HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {

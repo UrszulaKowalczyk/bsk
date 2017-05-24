@@ -25,8 +25,18 @@ public class RecipieController extends AbstractController {
 
 	@Autowired
 	private UserService userService;
+	
 	@Autowired
 	private RecipieService recipieService;
+	
+	@Autowired
+	private DefaultController defaultController;
+	
+	@RequestMapping(value = "/recipie")
+	public String user(Model model, Principal principal){
+		model.addAttribute("shownTable", "recipie");
+		return defaultController.showTable(model, principal);
+	}
 
 	@RequestMapping(value = "/addRecipie", method = RequestMethod.POST)
 	public String createRecipie(HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {

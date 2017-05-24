@@ -10,22 +10,51 @@
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
+
+			<ul class="nav navbar-nav">
+				<li><a href="<c:url value="/user" />">User</a></li>
+				<li><a href="<c:url value="/tableLabel" />">Table-Label</a></li>
+				<li><a href="<c:url value="/recipie" />">Recipie</a></li>
+				<li><a href="<c:url value="/recipieIngredient" />">Recipie-Ingredient</a></li>
+				<li><a href="<c:url value="/ingredient" />">Ingredient</a></li>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a>Zalogowano jako: ${user}</a></li>
+				<li><a>Logged as: ${user}</a></li>
 				<li><a href="<c:url value="/logout" />"><span
-						class="glyphicon glyphicon-log-in"></span> Wyloguj</a></li>
+						class="glyphicon glyphicon-log-in"></span> Log out</a></li>
 			</ul>
 		</div>
 	</nav>
 
-	<jsp:include page="include/user.jsp"/>
-	<jsp:include page="include/tableLabel.jsp"/>
-	<jsp:include page="include/recipie.jsp"/>
-	<jsp:include page="include/recipieIngredient.jsp"/>
-	<jsp:include page="include/ingredient.jsp"/>
-	<form name="form" >
+	<c:choose>
+		<c:when test="${shownTable=='user'}">
+			<jsp:include page="include/user.jsp" />
+		</c:when>
+		<c:when test="${shownTable=='tableLabel'}">
+			<jsp:include page="include/tableLabel.jsp" />
+		</c:when>
+		<c:when test="${shownTable=='recipie'}">
+			<jsp:include page="include/recipie.jsp" />
+		</c:when>
+		<c:when test="${shownTable=='recipieIngredient'}">
+			<jsp:include page="include/recipieIngredient.jsp" />
+		</c:when>
+		<c:when test="${shownTable=='ingredient'}">
+			<jsp:include page="include/ingredient.jsp" />
+		</c:when>
+		<c:otherwise>
+		</c:otherwise>
+	</c:choose>
+
+
+
+
+
+	
+	
+	<form name="form">
 		<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
+			value="${_csrf.token}" />
 	</form>
 </body>
 </html>

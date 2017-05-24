@@ -25,8 +25,18 @@ public class RecipieIngredientController extends AbstractController {
 
 	@Autowired
 	private UserService userService;
+	
 	@Autowired
 	private RecipieIngredientService recipieIngredientService;
+	
+	@Autowired
+	private DefaultController defaultController;
+	
+	@RequestMapping(value = "/recipieIngredient")
+	public String user(Model model, Principal principal){
+		model.addAttribute("shownTable", "recipieIngredient");
+		return defaultController.showTable(model, principal);
+	}
 
 	@RequestMapping(value = "/addRecipieIngredient", method = RequestMethod.POST)
 	public String createRecipieIngredient(HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {

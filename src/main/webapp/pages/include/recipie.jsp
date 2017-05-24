@@ -4,9 +4,9 @@
 <c:if test="${recipieTableInfo.visible}">
 
 <div class="container">
-	<h2>${recipieTableInfo.name}( Label: ${recipieTableInfo.level} )</h2>
+	<h2>${recipieTableInfo.name}   ( Label: ${recipieTableInfo.level} )</h2>
 
-	<table class="table table-bordered">
+	<table class="table">
 		<thead>
 			<tr>
 				<c:forEach items="${recipieTableInfo.columnsNames}" var="columnName">

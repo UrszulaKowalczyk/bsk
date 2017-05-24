@@ -4,9 +4,9 @@
 <c:if test="${tableLabelTableInfo.visible}">
 
 <div class="container">
-	<h2>${tableLabelTableInfo.name}( Label: ${tableLabelTableInfo.level} )</h2>
+	<h2>${tableLabelTableInfo.name}   ( Label: ${tableLabelTableInfo.level} )</h2>
 
-	<table class="table table-bordered">
+	<table class="table">
 		<thead>
 			<tr>
 				<c:forEach items="${tableLabelTableInfo.columnsNames}" var="columnName">

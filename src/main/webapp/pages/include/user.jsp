@@ -4,9 +4,9 @@
 <c:if test="${userTableInfo.visible}">
 
 <div class="container">
-	<h2>${userTableInfo.name}( Label: ${userTableInfo.level} )</h2>
+	<h2>${userTableInfo.name}   ( Label: ${userTableInfo.level} )</h2>
 
-	<table class="table table-bordered">
+	<table class="table">
 		<thead>
 			<tr>
 				<c:forEach items="${userTableInfo.columnsNames}" var="columnName">
@@ -39,8 +39,6 @@
 							onclick="deleteRow('<c:url value="/deleteUser" />', ${user.id});" > Delete </button>
 						</td>
 					</c:if>
-
-
 				</tr>
 
 			</c:forEach>
