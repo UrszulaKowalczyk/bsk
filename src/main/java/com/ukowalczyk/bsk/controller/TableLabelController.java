@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,10 +23,10 @@ public class TableLabelController extends AbstractController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private TableLabelService tableLabelService;
-	
+
 	@Autowired
 	private DefaultController defaultController;
 
@@ -50,29 +48,36 @@ public class TableLabelController extends AbstractController {
 		TableLabel tableLabel = new TableLabel(Integer.parseInt(label[0]), tableName[0]);
 		tableLabelService.save(tableLabel);
 
-		return "redirect:/";
+		model.addAttribute("shownTable", "tableLabel");
+		return defaultController.showTable(model, principal);
 	}
 
 	@RequestMapping(value = "/updateTableLabel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<String> updateTableLabel(@RequestBody TableLabel updatedTableLabel, Principal principal) {
+	public String updateTableLabel(@RequestBody TableLabel updatedTableLabel, Principal principal, Model model) {
 
-		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_RECIPIE))
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_RECIPIE)) {
+			model.addAttribute("shownTable", "tableLabel");
+			return defaultController.showTable(model, principal);
+		}
 
 		tableLabelService.save(updatedTableLabel);
 
-		return new ResponseEntity<String>(HttpStatus.OK);
+		model.addAttribute("shownTable", "tableLabel");
+		return defaultController.showTable(model, principal);
 	}
-	
-	@RequestMapping(value = "/deleteTableLabel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<String> delete(@RequestBody TableLabel tableLabel, Principal principal) {
 
-		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_TABLELABEL))
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+	@RequestMapping(value = "/deleteTableLabel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String delete(@RequestBody TableLabel tableLabel, Principal principal, Model model) {
+
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_TABLELABEL)) {
+			model.addAttribute("shownTable", "tableLabel");
+			return defaultController.showTable(model, principal);
+		}
 
 		tableLabelService.deleteById(tableLabel.getId());
 
-		return new ResponseEntity<String>(HttpStatus.OK);
+		model.addAttribute("shownTable", "tableLabel");
+		return defaultController.showTable(model, principal);
 	}
 
 }

@@ -12,9 +12,9 @@
 		<div class="container-fluid">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="<c:url value="/" />"><span
-						class="glyphicon glyphicon-list"></span> Wróć </a></li>
+						class="glyphicon glyphicon-list"></span> Go back</a></li>
 				<li><a href="<c:url value="/logout" />"><span
-						class="glyphicon glyphicon-log-in"></span> Wyloguj</a></li>
+						class="glyphicon glyphicon-log-in"></span> Log out</a></li>
 			</ul>
 		</div>
 	</nav>

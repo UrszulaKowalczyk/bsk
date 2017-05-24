@@ -44,16 +44,15 @@ public class DefaultController extends AbstractController {
 
 	@Autowired
 	private RecipieIngredientService recipieIngredientService;
-	
+
 	@Autowired
 	private UserController userController;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String redirectToUserTable(Model model, Principal principal){
+	public String redirectToUserTable(Model model, Principal principal) {
 		return userController.user(model, principal);
 	}
-	
-	
+
 	public String showTable(Model model, Principal principal) {
 
 		model.addAttribute("user", principal.getName());

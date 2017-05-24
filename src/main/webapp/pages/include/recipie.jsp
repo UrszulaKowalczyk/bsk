@@ -4,7 +4,7 @@
 <c:if test="${recipieTableInfo.visible}">
 
 <div class="container">
-	<h2>${recipieTableInfo.name}   ( Label: ${recipieTableInfo.level} )</h2>
+	<h2>Table:   <b>${recipieTableInfo.name}</b>   ( Label: ${recipieTableInfo.level} )</h2>
 
 	<table class="table">
 		<thead>

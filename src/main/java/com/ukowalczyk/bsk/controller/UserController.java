@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,15 +31,14 @@ public class UserController extends AbstractController {
 
 	@Autowired
 	private LoginController loginController;
-	
+
 	@Autowired
 	private DefaultController defaultController;
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	
-	
+
 	@RequestMapping(value = "/user")
-	public String user(Model model, Principal principal){
+	public String user(Model model, Principal principal) {
 		model.addAttribute("shownTable", "user");
 		return defaultController.showTable(model, principal);
 	}
@@ -57,54 +54,62 @@ public class UserController extends AbstractController {
 		String[] label = req.getParameterValues("label");
 
 		User user = new User(login[0], passwordEncoder.encode(password[0]), Integer.parseInt(label[0]));
+
 		userService.save(user);
 
-		return "redirect:/";
+		model.addAttribute("shownTable", "user");
+		return defaultController.showTable(model, principal);
 	}
 
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<String> updateUser(@RequestBody User updatedUser, Principal principal) {
+	public String updateUser(@RequestBody User updatedUser, Model model, Principal principal) {
 
 		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_USER))
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			return "notAllowed";
 
 		User oldUser = userService.findOne(updatedUser.getId());
-		
+
 		String newPassword = updatedUser.getPassword();
-		if(!oldUser.getPassword().equals(newPassword)) {
+		if (!oldUser.getPassword().equals(newPassword)) {
 			String encodedNewPassword = passwordEncoder.encode(newPassword);
 			updatedUser.setPassword(encodedNewPassword);
 		}
-		
-		userService.save(updatedUser);
-		
-		boolean userChangingHimself = principal.getName().equals(oldUser.getLogin());
-		if(userChangingHimself)
-		if(!oldUser.getLogin().equals(updatedUser.getLogin())) {
-			Authentication authentication = new UsernamePasswordAuthenticationToken(updatedUser.getLogin(), updatedUser.getPassword(), Collections.emptyList());
-			//Authentication result = authenticationManager.authenticate(authentication);
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-		}
 
-		return new ResponseEntity<String>(HttpStatus.OK);
+		userService.save(updatedUser);
+
+		boolean userChangingHimself = principal.getName().equals(oldUser.getLogin());
+		if (userChangingHimself)
+			if (!oldUser.getLogin().equals(updatedUser.getLogin())) {
+				Authentication authentication = new UsernamePasswordAuthenticationToken(updatedUser.getLogin(),
+						updatedUser.getPassword(), Collections.emptyList());
+				// Authentication result =
+				// authenticationManager.authenticate(authentication);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+
+		model.addAttribute("shownTable", "user");
+		return defaultController.showTable(model, principal);
 	}
 
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<String> delete(@RequestBody User user, Principal principal, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String delete(@RequestBody User user, Principal principal, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 
-		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_TABLELABEL))
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		if (!userService.checkIfUserCanWrite(principal, DatabaseInitializer.TABLE_TABLELABEL)) {
+			model.addAttribute("shownTable", "user");
+			return defaultController.showTable(model, principal);
+		}
 
 		user = userService.findOne(user.getId());
-		
+
 		if (principal.getName().equals(user.getLogin())) {
 			loginController.logoutDo(request, response);
 		}
 
 		userService.delete(user);
 
-		return new ResponseEntity<String>(HttpStatus.OK);
+		model.addAttribute("shownTable", "user");
+		return defaultController.showTable(model, principal);
 	}
 
 }

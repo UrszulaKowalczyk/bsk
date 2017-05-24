@@ -25,6 +25,23 @@
 			</ul>
 		</div>
 	</nav>
+	
+	<c:if test="${denied}">
+		<div class="alert alert-danger">
+			<center><strong>Permission denied.</strong><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a></center>
+		</div>
+	</c:if>
+	<c:if test="${error}">
+		<div class="alert alert-danger">
+			<center><strong>Invalid data format or permission denied.</strong><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a></center>
+		</div>
+	</c:if>
+	<c:if test="${invalid}">
+		<div class="alert alert-danger">
+			<center><strong>Invalid data format.</strong><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a></center>
+		</div>
+	</c:if>
+	
 
 	<c:choose>
 		<c:when test="${shownTable=='user'}">
@@ -50,8 +67,8 @@
 
 
 
-	
-	
+
+
 	<form name="form">
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
