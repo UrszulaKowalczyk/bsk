@@ -6,7 +6,11 @@
 <div class="container">
 	<h2>Table:   <b>${ingredientTableInfo.name}</b>   ( Label: ${ingredientTableInfo.level} )</h2>
 
-	<table class="table">
+	<div align="right">
+	<b>Search: </b><input type="text" id="ingredientIdInput" onkeyup="myFunctionIngredient()" placeholder="by ingredient id" title="Type in a name">
+	<b>Search: </b><input type="text" id="ingredientNameInput" onkeyup="myFunctionIngredient()" placeholder="by ingredient name" title="Type in a name">
+	</div>
+	<table class="table" id="ingredientTable">
 		<thead>
 			<tr>
 				<c:forEach items="${ingredientTableInfo.columnsNames}"
@@ -45,7 +49,7 @@
 					<tr>
 						<td><input type="text" /></td>
 						<td><input name="name" type="text" /></td>
-						<td><input type="submit" value="Save" /></td>
+						<td><input type="submit" value="Insert" /></td>
 					</tr>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
@@ -54,6 +58,29 @@
 		</tbody>
 	</table>
 
+	<script>
+	
+	function myFunctionIngredient() {
+	  var inputName, inputId, filterId, filterName, table, tr, td, i;
+	  inputName = document.getElementById("ingredientNameInput");
+	  filterName = inputName.value.toUpperCase();
+	  inputId = document.getElementById("ingredientIdInput");
+	  filterId = inputId.value.toUpperCase();
+	  table = document.getElementById("ingredientTable");
+	  tr = table.getElementsByTagName("tr");
+	  for (i = 0; i < tr.length; i++) {
+		tdId = tr[i].getElementsByTagName("td")[0];
+	    tdName = tr[i].getElementsByTagName("td")[1];
+	    if (tdId && tdName) {
+	      if ((tdName.innerHTML.toUpperCase().indexOf(filterName) > -1) && (tdId.innerHTML.toUpperCase().indexOf(filterId) > -1)) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }       
+	  }
+	}
+	</script>
 
 </div>
 

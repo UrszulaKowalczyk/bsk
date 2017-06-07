@@ -6,7 +6,13 @@
 <div class="container">
 	<h2>Table:   <b>${tableLabelTableInfo.name}</b>   ( Label: ${tableLabelTableInfo.level} )</h2>
 
-	<table class="table">
+<div align="right">
+	<b>Search: </b><input type="text" id="tableLabelIdInput" onkeyup="myFunctionTableLabel()" placeholder="by id" title="Type in a name">
+	<b>Search: </b><input type="text" id="tableLabelNameInput" onkeyup="myFunctionTableLabel()" placeholder="by name" title="Type in a name">
+	<b>Search: </b><input type="text" id="tableLabelLabelInput" onkeyup="myFunctionTableLabel()" placeholder="by label" title="Type in a name">
+	</div>
+
+	<table class="table" id="tableLabelTable">
 		<thead>
 			<tr>
 				<c:forEach items="${tableLabelTableInfo.columnsNames}" var="columnName">
@@ -50,7 +56,7 @@
 						<td><input type="text" /></td>
 						<td><input name="tableName" type="text" /></td>
 						<td><input name="label" type="text" /></td>
-						<td><input type="submit" value="Save" /></td>
+						<td><input type="submit" value="Insert" /></td>
 					</tr>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
@@ -59,7 +65,32 @@
 		</tbody>
 	</table>
 
-
+<script>
+	
+	function myFunctionTableLabel() {
+	  var inputTitle, inputId, filterId, filterTitle, table, tr, td, i;
+	  inputTitle = document.getElementById("tableLabelNameInput");
+	  filterTitle = inputTitle.value.toUpperCase();
+	  inputId = document.getElementById("tableLabelIdInput");
+	  filterId = inputId.value.toUpperCase();
+	  inputDescription = document.getElementById("tableLabelLabelInput");
+	  filterDescription = inputDescription.value.toUpperCase();
+	  table = document.getElementById("tableLabelTable");
+	  tr = table.getElementsByTagName("tr");
+	  for (i = 0; i < tr.length; i++) {
+		tdId = tr[i].getElementsByTagName("td")[0];
+	    tdTitle = tr[i].getElementsByTagName("td")[1];
+	    tdDescription = tr[i].getElementsByTagName("td")[2];
+	    if (tdId && tdTitle && tdDescription) {
+	      if ((tdTitle.innerHTML.toUpperCase().indexOf(filterTitle) > -1) && (tdId.innerHTML.toUpperCase().indexOf(filterId) > -1) && (tdDescription.innerHTML.toUpperCase().indexOf(filterDescription) > -1)) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }       
+	  }
+	}
+	</script>
 </div>
 
 </c:if>

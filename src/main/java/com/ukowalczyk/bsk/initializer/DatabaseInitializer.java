@@ -37,7 +37,7 @@ public class DatabaseInitializer {
 
 	public static final String TABLE_TABLELABEL = "tablelabel";
 	public static final String TABLE_USER = "user";
-	public static final String TABLE_RECIPIE = "recipie";
+	public static final String TABLE_RECIPIE = "recipe";
 	public static final String TABLE_INGREDIENT = "ingredient";
 	public static final String TABLE_RECIPIE_INGREDIENT = "recipie_ingredient";
 

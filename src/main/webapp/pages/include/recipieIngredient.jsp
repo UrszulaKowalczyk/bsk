@@ -5,8 +5,13 @@
 
 <div class="container">
 	<h2>Table:   <b>${recipieIngredientTableInfo.name}</b>   ( Label: ${recipieIngredientTableInfo.level} )</h2>
-
-	<table class="table">
+	<div align="right">
+	<b>Search: </b><input type="text" id="recipeIngredientIdInput" onkeyup="myFunctionRecipeIngredient()" placeholder="by id" title="Type in a name">
+	<b>Search: </b><input type="text" id="recipeIngredientRecipeIdInput" onkeyup="myFunctionRecipeIngredient()" placeholder="by recipe id" title="Type in a name">
+	<b>Search: </b><input type="text" id="recipeIngredientIngredientIdInput" onkeyup="myFunctionRecipeIngredient()" placeholder="by ingredient id" title="Type in a name">
+	</div>
+	
+	<table class="table" id="recipeIngredientTable">
 		<thead>
 			<tr>
 				<c:forEach items="${recipieIngredientTableInfo.columnsNames}" var="columnName">
@@ -49,7 +54,7 @@
 						<td><input type="text" /></td>
 						<td><input name="recipieId" type="text" /></td>
 						<td><input name="ingredientId" type="text" /></td>
-						<td><input type="submit" value="Save" /></td>
+						<td><input type="submit" value="Insert" /></td>
 					</tr>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
@@ -58,6 +63,32 @@
 		</tbody>
 	</table>
 
+<script>
+	
+	function myFunctionRecipeIngredient() {
+	  var inputTitle, inputId, filterId, filterTitle, table, tr, td, i;
+	  inputTitle = document.getElementById("recipeIngredientRecipeIdInput");
+	  filterTitle = inputTitle.value.toUpperCase();
+	  inputId = document.getElementById("recipeIngredientIdInput");
+	  filterId = inputId.value.toUpperCase();
+	  inputDescription = document.getElementById("recipeIngredientIngredientIdInput");
+	  filterDescription = inputDescription.value.toUpperCase();
+	  table = document.getElementById("recipeIngredientTable");
+	  tr = table.getElementsByTagName("tr");
+	  for (i = 0; i < tr.length; i++) {
+		tdId = tr[i].getElementsByTagName("td")[0];
+	    tdTitle = tr[i].getElementsByTagName("td")[1];
+	    tdDescription = tr[i].getElementsByTagName("td")[2];
+	    if (tdId && tdTitle && tdDescription) {
+	      if ((tdTitle.innerHTML.toUpperCase().indexOf(filterTitle) > -1) && (tdId.innerHTML.toUpperCase().indexOf(filterId) > -1) && (tdDescription.innerHTML.toUpperCase().indexOf(filterDescription) > -1)) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }       
+	  }
+	}
+	</script>
 
 </div>
 
